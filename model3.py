@@ -1,9 +1,22 @@
-"""
-三分支网络 ：长宽不一样卷积核"""
+
+from __future__ import print_function
+import numpy as np
+from keras.models import Model,load_model
+from keras.layers import Input, merge
+from keras.layers.convolutional import Conv2D,UpSampling2D
+from keras.layers.pooling  import MaxPooling2D
+from keras.optimizers import Adam
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from data import load_train_data, load_test_data
 
 
+import matplotlib.pyplot as plt
+from train_test import dice_coef_loss,dice_coef
 
 
+from keras import backend as K
+K.set_image_dim_ordering('th')
+"""此模型利用三个不同卷积核且卷积核为矩形的unet模型融合生成predict mask"""
 
 
 def inception_model1(inputs,kernel_size):
