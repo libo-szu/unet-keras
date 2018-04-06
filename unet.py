@@ -1,4 +1,23 @@
 #原始unet模型 
+
+from __future__ import print_function
+from keras import backend as K
+import numpy as np
+from keras.models import Model,load_model
+from keras.layers import Input, merge, Dropout
+from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose,UpSampling2D
+from keras.layers.pooling  import MaxPooling2D
+from keras.optimizers import Adam
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from train_test import dice_coef_loss,dice_coef
+from keras import backend as K
+K.set_image_dim_ordering('th')  
+
+
+"""这是一个原始unet的实现模型"""
 def get_unet():
     inputs = Input((1, img_rows, img_cols))
     conv1 = Conv2D(32, 3, 3, activation='relu', padding='same')(inputs)
