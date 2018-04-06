@@ -11,7 +11,7 @@ from data import load_train_data, load_test_data
 
 
 import matplotlib.pyplot as plt
-import tensorflow as tf
+from train_test import dice_coef_loss,dice_coef
 
 
 from keras import backend as K
