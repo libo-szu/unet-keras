@@ -1,8 +1,23 @@
 
+from __future__ import print_function
+import numpy as np
+from keras.models import Model,load_model
+from keras.layers import Input, merge
+from keras.layers.convolutional import Conv2D,UpSampling2D
+from keras.layers.pooling  import MaxPooling2D
+from keras.optimizers import Adam
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+from data import load_train_data, load_test_data
+
+
+import matplotlib.pyplot as plt
+from train_test import dice_coef_loss,dice_coef
+
+
+from keras import backend as K
+K.set_image_dim_ordering('th')
+
 """
-
-
-
 new_unet:先三分支后三分支融合形成第四分支，后融合形成conv10卷积层
 
 
