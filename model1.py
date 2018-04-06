@@ -10,7 +10,7 @@ from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from unet import get_unet
+from train_test import dice_coef_loss,dice_coef
 
 from keras import backend as K
 K.set_image_dim_ordering('th')  
