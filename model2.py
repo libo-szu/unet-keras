@@ -1,29 +1,24 @@
 
 from __future__ import print_function
-from keras import backend as K
-import cv2
 import numpy as np
 from keras.models import Model,load_model
-from keras.layers import Input, merge, Dropout
+from keras.layers import Input, merge
 from keras.layers.convolutional import Conv2D,UpSampling2D
 from keras.layers.pooling  import MaxPooling2D
 from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
-from keras import backend as K
 from data import load_train_data, load_test_data
 
-#from skimage.transform import rotate, resize
-#from skimage import data
+
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
 
 from keras import backend as K
 K.set_image_dim_ordering('th')
-img_rows = 224
-img_cols = 224
 
-"""三分支网络：正方形卷积核"""
+"""此模型利用三个不同卷积核的unet融合形成predict mask"""
+
 
 
 def inception_model(inputs,kernel_size):
