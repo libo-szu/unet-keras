@@ -17,7 +17,7 @@ import tensorflow as tf
 
 from keras import backend as K
 
-
+"""这是一个打印观察训练数据的文件，并非测试文件"""
 def test():
     imgs_train=np.load("imgs_train.npy")
     imgs_mask_train=np.load("data.npy")
