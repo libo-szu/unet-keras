@@ -16,12 +16,13 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib.font_manager import FontProperties
 
-
+"""这是一个将图像文件转换成numpy数据的py代码"""
 
 data_path = 'raw1/'
 save_path = 'C:/Users/server/Desktop/u-net-master/u-net-master/'
 image_rows = 224
 image_cols = 224
+#创建训练数据
 def create_train_data():
     train_data_path = os.path.join(data_path, 'train')
     images = os.listdir(train_data_path)
@@ -56,18 +57,18 @@ def create_train_data():
     np.save('imgs_mask_train.npy', imgs_mask)
     print('Saving to .npy files done.')
 
-
+   #下载训练数据的函数
 def load_train_data():
     imgs_train = np.load('imgs_train.npy')
     imgs_mask_train = np.load('imgs_mask_train.npy')
     return imgs_train, imgs_mask_train
-
+#对数据进行resize
 def preprocess(imgs, img_rows,img_cols):
     imgs_p = np.ndarray((imgs.shape[0],imgs.shape[1],img_rows,img_cols),dtype=np.uint8)
     for i in range(imgs.shape[0]):
         imgs_p[i, 0 ] = cv2.resize(imgs[i,0],(img_cols,img_rows),interpolation=cv2.INTER_CUBIC)
     return imgs_p
-
+#创建最终的训练数据：data.npy,mask.npy
 def detseg():
     # out_rows=240
     # out_cols=320
@@ -95,55 +96,7 @@ def detseg():
     print('save data')
     np.save(save_path+'mask.npy',imgs_mask_train.astype(np.bool))
     print('save mask')
-"""
-  del imgs_train
-    
-    bboxes=[]
-    masks=[]
-
-    acc_width=[]
-    acc_height=[]
-    max_width=0
-
-    for percent,label in enumerate(imgs_mask_train):
-        if percent % 100==0:
-            print(percent)
-        label=label[0]
-        CCMap,CCNum = skimage.measure.label(label,connectivity=1,background=0,return_num=True)
-        gt_boxes=[]
-        instance_masks=[]
-        for ins in range(CCNum):
-            foregroundIdx=CCMap==ins
-            #plt.imshow(foregroundIdx)
-            #plt.show()
-            area=np.sum(foregroundIdx)
-            if area<10:
-                CCMap[foregroundIdx]=-1
-                continue
-            idx_map=np.where(foregroundIdx==True)
-            ymin=idx_map[0].min()
-            ymax=idx_map[0].max()
-            xmin=idx_map[1].min()
-            xmax=idx_map[1].max()
-
-            max_width=foregroundIdx.shape[1]
-            acc_width.append(xmax-xmin)
-            acc_height.append(ymax-ymin)
-            print(xmin,ymin,xmax,ymax)
-            instance_masks.append(label[ymin:ymax,xmin:xmax])
-            gt_boxes.append([xmin,ymin,xmax,ymax,1])
-        bboxes.append(gt_boxes)
-        masks.append(instance_masks)
-
-    print("xmax", max_width, max(acc_width))
-    H, xedges, yedges=np.histogram2d(acc_width,acc_height, bins=50)
-    plt.imshow(H, interpolation='nearest', origin='low',
-                extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]])
-    plt.show()
-    
-    np.save(save_path+'roidb.npy',np.array(bboxes))
-    np.save(save_path+'maskdb.npy',np.array(masks))
-"""
+#创建test数据
 def create_test_data():
     train_data_path = os.path.join(data_path, 'test')
     images = os.listdir(train_data_path)
@@ -177,6 +130,7 @@ def create_test_data():
     np.save('imgs_test.npy', imgs)
     np.save('imgs_mask_test.npy', imgs_mask)
     print('Saving to .npy files done.')
+#下载test数据
 def load_test_data():
     imgs_test = np.load('imgs_test.npy')
     imgs_mask_test = np.load('imgs_mask_test.npy')
