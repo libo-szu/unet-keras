@@ -1,11 +1,23 @@
-"""
-三分支后融合在一起的模型"""
+from __future__ import print_function
+from keras import backend as K
+import numpy as np
+from keras.models import Model,load_model
+from keras.layers import Input, merge, Dropout
+from keras.layers import Input, concatenate, Conv2D, MaxPooling2D, Conv2DTranspose,UpSampling2D
+from keras.layers.pooling  import MaxPooling2D
+from keras.optimizers import Adam
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler
+
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from unet import get_unet
+
+from keras import backend as K
+K.set_image_dim_ordering('th')  
 
 
-
-
-
-
+#这是一个对原始unet做改进的模型keras代码
+""'此模型将通过前面三个unet模型的前4层与后面几层融合而得到predict  mask"""
 
 def craete_model1():
     inputs = Input((1, img_rows, img_cols))
