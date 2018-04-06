@@ -30,7 +30,7 @@ from new_model import new_model
    环绕模型权重：new_model.hdf5                        模型：new_model.new_model
 
 """
-
+#这个文件包含训练函数和测试函数
 
 path_train='D:/DSB2018_03_18/npyFile/trainIMG.npy'
 path_train_mask='D:/DSB2018_03_18/npyFile/trainMASK.npy'
